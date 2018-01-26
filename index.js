@@ -4,6 +4,17 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan'); //Middleware that logs requests
 const app = express();
 const router = require('./router');
+const mongoose = require('mongoose');
+
+//DB Setup 
+mongoose.connect('mongodb://localhost/test')
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('Mongoose Connected');
+});
+
 
 //App Setup
 //app.use() registers the argument as middleware
