@@ -7,6 +7,10 @@ function tokenForUser(user) {
     return jwt.encode({sub: user.id, iat: timestamp}, config.secret);
 }
 
+exports.signin = function (req,res,next){
+    res.send({token: tokenForUser(req.user)});
+}
+
 exports.signup = function(req, res, next){
     console.log(req.body);
     const email = req.body.email;
@@ -37,6 +41,4 @@ exports.signup = function(req, res, next){
         });
 
     });
-
-   
 }
