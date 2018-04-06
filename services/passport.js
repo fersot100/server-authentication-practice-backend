@@ -5,6 +5,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local');
 
+// Setup options for Local Strategy
 const localOptions = {
     usernameField: 'email'
 }
@@ -30,7 +31,7 @@ const jwtOptions = {
     secretOrKey: config.secret
 };
 
-//Create JWT strategy
+// Create JWT strategy
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
     // See if the user ID in the payload exists in our database
     User.findById(payload.sub, function(err, user) {
@@ -43,7 +44,6 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
             done(null, false);
         }
     });
-
 });
 
 // Tell passport to use this strategy, now any passport.authenticate() will use this strategy
